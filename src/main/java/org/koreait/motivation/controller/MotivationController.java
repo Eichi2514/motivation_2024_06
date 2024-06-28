@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class MotivationController {
 
-    int deleteCount = 0;
+    int deleteCount = 1;
     int lastId;
     List<Motivation> motivations;
 
@@ -53,11 +53,13 @@ public class MotivationController {
     }
 
     public void change(String cmd) {
-
+        int id = Integer.parseInt(String.valueOf(cmd.charAt(cmd.length() - 1)));
+        if (motivations.size() == 0) {
+            System.out.printf("%d번 motivation은 존재하지 않습니다\n", id);
+        }
         if (cmd.length() == 6) {
             System.out.println("change 뒤에 수정할 번호를 추가해주세요");
         } else {
-            int id = Integer.parseInt(String.valueOf(cmd.charAt(cmd.length() - 1)));
             System.out.print("body : ");
             String body = Container.getScanner().nextLine();
             System.out.print("source : ");
@@ -72,15 +74,16 @@ public class MotivationController {
     }
 
     public void delete(String cmd) {
+        int id = Integer.parseInt(String.valueOf(cmd.charAt(cmd.length() - 1)));
         if (cmd.length() == 6) {
             System.out.println("delete 뒤에 삭제할 번호를 추가해주세요");
+        } else if ((id - deleteCount) < 0 || (id - deleteCount + 1) > motivations.size()) {
+            System.out.printf("%d번 motivation은 존재하지 않습니다\n", id);
         } else {
-            int id = Integer.parseInt(String.valueOf(cmd.charAt(cmd.length() - 1)));
-
-            motivations.remove(id - 1 - deleteCount);
+            motivations.remove(id - deleteCount);
 
             System.out.printf("%d번 motivation이 삭제되었습니다\n", id);
-            deleteCount++;
+            if (motivations.size() == id){deleteCount++;}
         }
     }
 }
