@@ -1,5 +1,7 @@
 package org.koreait;
 
+import org.koreait.motivation.entity.Motivation;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -62,6 +64,17 @@ public class App {
                         }
                     }
                 }
+            }
+            if (cmd.contains("correction")) {
+                if (cmd.length() <= 10){
+                    System.out.println("correction 뒤에 수정할 번호를 추가해주세요");
+                }
+                else{
+                int i = Integer.parseInt(String.valueOf(cmd.charAt(cmd.length() - 1)));
+                System.out.println(i-1);
+                motivations.get(i-1);
+                }
+
             }
         }
     }
