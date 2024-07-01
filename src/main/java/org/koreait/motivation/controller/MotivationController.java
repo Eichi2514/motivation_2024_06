@@ -64,8 +64,10 @@ public class MotivationController {
                 if (motivations.get(id + "source") == null) {
                     System.out.printf("%s번 motivation은 존재하지 않습니다\n", id);
                 } else {
+                    System.out.println("body : " + motivations.get(id + "body"));
                     System.out.print("body : ");
                     String body = Container.getScanner().nextLine();
+                    System.out.println("source : " + motivations.get(id + "source"));
                     System.out.print("source : ");
                     String source = Container.getScanner().nextLine();
 
