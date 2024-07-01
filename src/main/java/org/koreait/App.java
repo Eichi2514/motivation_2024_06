@@ -38,6 +38,8 @@ public class App {
                 motivationController.change(cmd);
             } else if (cmd.contains("source")) {
                 motivationController.source(cmd);
+            } else if (cmd.contains("command")) {
+                motivationController.command(cmd);
             } else {
                 System.out.println("없는 command 입니다");
             }
