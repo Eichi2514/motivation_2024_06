@@ -10,10 +10,10 @@ import java.util.Scanner;
 
 public class MotivationController {
 
-    int deleteCount;
-    int lastId;
+    int deleteCount = 0;
+    int lastId = 0;
 
-    HashMap<Integer, String> motivations;
+    HashMap<String, String> motivations;
 
     public MotivationController() {
         lastId = 0;
@@ -21,17 +21,17 @@ public class MotivationController {
     }
 
     public void add() {
-        int id = lastId + 1;
+        String id = Integer.toString(lastId + 1);
         System.out.print("body : ");
         String body = Container.getScanner().nextLine();
         System.out.print("source : ");
         String source = Container.getScanner().nextLine();
 
-        motivations.put(id * 10, body);
-        motivations.put(id * 11, source);
+        motivations.put(id + "body", body);
+        motivations.put(id + "source", source);
 
 
-        System.out.printf("%d번 motivation이 등록 되었습니다\n", id);
+        System.out.printf("%s번 motivation이 등록 되었습니다\n", id);
         lastId++;
     }
 
@@ -43,13 +43,13 @@ public class MotivationController {
             System.out.printf("  id   //   source   // motivation \n");
             System.out.println("=".repeat(41));
 
-            for (int i = ((motivations.size() / 2) - 1 + deleteCount); i >= 0; i--) {
-                int id = i + 1;
+            for (int i = ((motivations.size() / 2) + deleteCount); i >= 0; i--) {
+                String id = Integer.toString(i);
                 try {
-                    if (motivations.get(id * 11).length() > 3) {
-                        System.out.println("   " + (id) + "   //   " + motivations.get(id * 11).substring(0, 3) + "...   // " + motivations.get(id * 10));
+                    if (motivations.get(id + "source").length() > 3) {
+                        System.out.println("   " + (id) + "   //   " + motivations.get(id + "source").substring(0, 3) + "...   // " + motivations.get(id + "body"));
                     } else {
-                        System.out.println("   " + (id) + "   //   " + motivations.get(id * 11) + "   // " + motivations.get(id * 10));
+                        System.out.println("   " + (id) + "   //   " + motivations.get(id + "source") + "   // " + motivations.get(id + "body"));
                     }
                 } catch (NullPointerException e) {
                 }
@@ -62,8 +62,8 @@ public class MotivationController {
             System.out.println("change 뒤에 수정할 번호를 추가해주세요");
         } else {
             try {
-                int id = Integer.parseInt(cmd.substring(6));
-                if (motivations.get(id * 11) == null) {
+                String id = cmd.substring(6);
+                if (motivations.get(id + "source") == null) {
                     System.out.printf("%d번 motivation은 존재하지 않습니다\n", id);
                 } else if (cmd.length() > 6) {
                     System.out.print("body : ");
@@ -71,14 +71,12 @@ public class MotivationController {
                     System.out.print("source : ");
                     String source = Container.getScanner().nextLine();
 
-                    Motivation motivation = new Motivation(id, body, source);
+                    motivations.remove(id + "body");
+                    motivations.remove(id + "source");
+                    motivations.put(id + "body", body);
+                    motivations.put(id + "source", source);
 
-                    motivations.remove(id * 10);
-                    motivations.remove(id * 11);
-                    motivations.put(id * 10, body);
-                    motivations.put(id * 11, source);
-
-                    System.out.printf("%d번 motivation이 수정되었습니다\n", id);
+                    System.out.printf("%s번 motivation이 수정되었습니다\n", id);
                 } else {
                     System.out.println("없는 command 입니다");
                 }
@@ -94,14 +92,14 @@ public class MotivationController {
             System.out.println("delete 뒤에 삭제할 번호를 추가해주세요");
         } else {
             try {
-                int id = Integer.parseInt(cmd.substring(6));
+                String id = cmd.substring(6);
 
                 if (cmd.length() > 6) {
-                    if (motivations.get(id * 11) == null) {
+                    if (motivations.get(id + "source") == null) {
                         System.out.printf("%d번 motivation은 존재하지 않습니다\n", id);
                     } else {
-                        motivations.remove(id * 10);
-                        motivations.remove(id * 11);
+                        motivations.remove(id + "body");
+                        motivations.remove(id + "source");
                         deleteCount++;
                         System.out.printf("%d번 motivation이 삭제되었습니다\n", id);
                     }
@@ -123,11 +121,11 @@ public class MotivationController {
                 int id = Integer.parseInt(cmd.substring(6));
 
                 if (cmd.length() > 6) {
-                    if (motivations.get(id * 11) == null) {
+                    if (motivations.get(id + "source") == null) {
                         System.out.printf("%d번 source는 존재하지 않습니다\n", id);
                     } else {
 
-                        System.out.printf("%d번 source : %s\n", id, motivations.get(id * 11));
+                        System.out.printf("%d번 source : %s\n", id, motivations.get(id + "source"));
                     }
                 } else {
                     System.out.println("없는 command 입니다");
