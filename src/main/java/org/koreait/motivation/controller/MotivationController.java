@@ -63,7 +63,7 @@ public class MotivationController {
         } else {
             try {
                 int id = Integer.parseInt(cmd.substring(6));
-                if (motivations.size() == 0) {
+                if (motivations.get(id * 11) == null) {
                     System.out.printf("%d번 motivation은 존재하지 않습니다\n", id);
                 } else if (cmd.length() > 6) {
                     System.out.print("body : ");
@@ -97,7 +97,7 @@ public class MotivationController {
                 int id = Integer.parseInt(cmd.substring(6));
 
                 if (cmd.length() > 6) {
-                    if (id < 0 || (id + 1) > motivations.size()) {
+                    if (motivations.get(id * 11) == null) {
                         System.out.printf("%d번 motivation은 존재하지 않습니다\n", id);
                     } else {
                         motivations.remove(id * 10);
@@ -123,7 +123,7 @@ public class MotivationController {
                 int id = Integer.parseInt(cmd.substring(6));
 
                 if (cmd.length() > 6) {
-                    if (id < 0 || (id + 1) > motivations.size()) {
+                    if (motivations.get(id * 11) == null) {
                         System.out.printf("%d번 source는 존재하지 않습니다\n", id);
                     } else {
 
