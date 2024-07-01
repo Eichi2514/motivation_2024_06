@@ -36,6 +36,8 @@ public class App {
                 motivationController.delete(cmd);
             } else if (cmd.contains("change")) {
                 motivationController.change(cmd);
+            } else if (cmd.contains("source")) {
+                motivationController.source(cmd);
             } else {
                 System.out.println("없는 command 입니다");
             }
