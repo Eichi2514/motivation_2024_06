@@ -34,8 +34,8 @@ public class App {
                 motivationController.list();
             } else if (cmd.contains("delete")) {
                 motivationController.delete(cmd);
-            } else if (cmd.contains("change")) {
-                motivationController.change(cmd);
+            } else if (cmd.contains("edit")) {
+                motivationController.edit(cmd);
             } else if (cmd.contains("source")) {
                 motivationController.source(cmd);
             } else if (cmd.contains("command")) {

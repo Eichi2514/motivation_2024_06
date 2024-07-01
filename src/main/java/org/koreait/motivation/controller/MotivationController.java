@@ -3,10 +3,7 @@ package org.koreait.motivation.controller;
 import org.koreait.Container;
 import org.koreait.motivation.entity.Motivation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class MotivationController {
 
@@ -57,15 +54,16 @@ public class MotivationController {
         }
     }
 
-    public void change(String cmd) {
-        if (cmd.length() <= 6) {
-            System.out.println("change 뒤에 수정할 번호를 추가해주세요");
+    public void edit(String cmd) {
+        if (cmd.length() <= 4) {
+            System.out.println("edit 뒤에 수정할 번호를 추가해주세요");
         } else {
             try {
-                String id = cmd.substring(6);
+                String id = cmd.substring(4);
+                int error = Integer.parseInt(cmd.substring(4));
                 if (motivations.get(id + "source") == null) {
-                    System.out.printf("%d번 motivation은 존재하지 않습니다\n", id);
-                } else if (cmd.length() > 6) {
+                    System.out.printf("%s번 motivation은 존재하지 않습니다\n", id);
+                } else {
                     System.out.print("body : ");
                     String body = Container.getScanner().nextLine();
                     System.out.print("source : ");
@@ -77,11 +75,9 @@ public class MotivationController {
                     motivations.put(id + "source", source);
 
                     System.out.printf("%s번 motivation이 수정되었습니다\n", id);
-                } else {
-                    System.out.println("없는 command 입니다");
                 }
             } catch (NumberFormatException e) {
-                System.out.println(cmd.substring(6) + "란 번호는 사용할 수 없습니다");
+                System.out.println(cmd.substring(4) + "란 번호는 사용할 수 없습니다");
                 return;
             }
         }
@@ -93,15 +89,16 @@ public class MotivationController {
         } else {
             try {
                 String id = cmd.substring(6);
+                int error = Integer.parseInt(cmd.substring(6));
 
                 if (cmd.length() > 6) {
                     if (motivations.get(id + "source") == null) {
-                        System.out.printf("%d번 motivation은 존재하지 않습니다\n", id);
+                        System.out.printf("%s번 motivation은 존재하지 않습니다\n", id);
                     } else {
                         motivations.remove(id + "body");
                         motivations.remove(id + "source");
                         deleteCount++;
-                        System.out.printf("%d번 motivation이 삭제되었습니다\n", id);
+                        System.out.printf("%s번 motivation이 삭제되었습니다\n", id);
                     }
                 } else {
                     System.out.println("없는 command 입니다");
@@ -118,14 +115,15 @@ public class MotivationController {
             System.out.println("source 뒤에 확인할 번호를 추가해주세요");
         } else {
             try {
-                int id = Integer.parseInt(cmd.substring(6));
+                String id = cmd.substring(6);
+                int error = Integer.parseInt(cmd.substring(6));
 
                 if (cmd.length() > 6) {
                     if (motivations.get(id + "source") == null) {
-                        System.out.printf("%d번 source는 존재하지 않습니다\n", id);
+                        System.out.printf("%s번 source는 존재하지 않습니다\n", id);
                     } else {
 
-                        System.out.printf("%d번 source : %s\n", id, motivations.get(id + "source"));
+                        System.out.printf("%s번 source : %s\n", id, motivations.get(id + "source"));
                     }
                 } else {
                     System.out.println("없는 command 입니다");
@@ -142,7 +140,7 @@ public class MotivationController {
             System.out.println("   command    : command 목록 불러오기");
             System.out.println("     add      : motivation 등록하기");
             System.out.println("     list     : motivation 목록 불러오기");
-            System.out.println(" change + 번호 : 해당 번호 motivation 내용 수정하기");
+            System.out.println(" edit + 번호 : 해당 번호 motivation 내용 수정하기");
             System.out.println(" delete + 번호 : 해당 번호 motivation 삭제하기");
             System.out.println(" source + 번호 : 해당 번호 source 내용 불러오기");
         }
