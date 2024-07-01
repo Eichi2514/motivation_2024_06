@@ -138,6 +138,7 @@ public class MotivationController {
     public void command(String cmd) {
         if (cmd.length() <= 7) {
             System.out.println("   command    : command 목록 불러오기");
+            System.out.println("    exit      : system 종료");
             System.out.println("     add      : motivation 등록하기");
             System.out.println("     list     : motivation 목록 불러오기");
             System.out.println(" edit + 번호 : 해당 번호 motivation 내용 수정하기");
